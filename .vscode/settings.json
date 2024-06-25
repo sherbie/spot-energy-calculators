@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "sherbie",
+        "projectKey": "sherbie_spot-risk-assessment"
+    }
+}

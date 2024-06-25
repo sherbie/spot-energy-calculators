@@ -1,0 +1,17 @@
+name: Merge to master
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  test:
+    uses: sherbie/spot-risk-assessment/.github/workflows/job-qa.yml@master
+    with:
+      do_test: true
+      do_sonar_scan: true
+    secrets: inherit
