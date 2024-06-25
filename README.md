@@ -1,5 +1,7 @@
 # Spot price simulation tools
 
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=sherbie_spot-risk-assessment&metric=coverage)](https://sonarcloud.io/summary/overall?id=sherbie_spot-risk-assessment)
+
 This collection of scripts can help home owners estimate outcomes of switching from fixed rate energy prices to spot price. They are currently useful to nordic residents but additional contributers are welcome to add support for other regions.
 
 # Installation
@@ -27,3 +29,5 @@ After deciding your input flags, you can also use `energy_model_test.json` as ex
 - Tests
 - Enstoe api client integration
 - cron-pattern-based consumption objects
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/overall?id=sherbie_spot-risk-assessment)
