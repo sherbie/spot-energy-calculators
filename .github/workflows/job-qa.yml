@@ -1,0 +1,97 @@
+name: QA Analysis
+
+on:
+  workflow_call:
+    inputs:
+      coverage_file_path:
+        required: false
+        type: string
+      lint_file_path:
+        required: false
+        type: string
+      do_lint:
+        required: false
+        type: boolean
+        default: false
+      do_test:
+        required: false
+        type: boolean
+        default: false
+      do_sonar_scan:
+        required: false
+        type: boolean
+        default: false
+        description: "Run Sonarcloud static analysis on code, coverage, and lint reports."
+      do_check_sonar_quality_gate:
+        required: false
+        type: boolean
+        default: false
+        description: "Pass or fail the pipeline based on the quality gate's status."
+    secrets:
+        SONAR_TOKEN:
+            required: false
+jobs:
+  test_and_lint:
+    name: Test and lint
+    runs-on: ubuntu-latest${{ github.event.inputs.node_version }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Use Python
+        uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
+    
+      - name: Setup
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run tests
+        if: ${{ inputs.do_test }}
+        run: echo noop
+
+  sonar_scanner:
+    name: Scan code with Sonar
+    runs-on: ubuntu-latest
+    needs: test_and_lint
+    if: ${{ inputs.do_sonar_scan }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          fetch-depth: 0
+
+      - name: Run sonar scanner
+        uses: sonarsource/sonarqube-scan-action@86fe81775628f1c6349c28baab87881a2170f495 # v2.1.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: "https://sonarcloud.io"
+
+      - name: Upload metadataReport artifact
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        with:
+          name: metadataReport
+          path: .scannerwork/report-task.txt
+
+  sonar_quality_gate:
+    name: Check Sonar Quality Gate status
+    runs-on: ubuntu-latest
+    needs: sonar_scanner
+    if: ${{ inputs.do_check_sonar_quality_gate }}
+
+    steps:
+      - name: Download metadataReport artifact
+        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
+        with:
+          name: metadataReport
+
+      - name: SonarQube Quality Gate check
+        id: sonarqube-quality-gate-check
+        uses: sonarsource/sonarqube-quality-gate-action@d304d050d930b02a896b0f85935344f023928496 # v1.1.0
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: "https://sonarcloud.io"
+        with:
+          scanMetadataReportFile: report-task.txt
