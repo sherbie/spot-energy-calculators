@@ -4,7 +4,7 @@
 
 This collection of scripts can help home owners estimate outcomes of switching from fixed rate energy prices to spot price. They are currently useful to nordic residents but additional contributers are welcome to add support for other regions.
 
-# 1. How to setup the project
+# 1. How to set up the project
 
 
 ## 1.1 Install dependencies
