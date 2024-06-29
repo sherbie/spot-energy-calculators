@@ -1,0 +1,3 @@
+- Tests
+- cron-pattern-based consumption objects
+- USA market data clients
