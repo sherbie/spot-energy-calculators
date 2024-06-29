@@ -39,9 +39,4 @@ python simulate.py
 
 After deciding your input flags, you can also use `energy_model_test.json` as example input for reference.
 
-# TODO
-
-- Tests
-- cron-pattern-based consumption objects
-
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/overall?id=sherbie_spot-risk-assessment)
