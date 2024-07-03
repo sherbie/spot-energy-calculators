@@ -62,11 +62,10 @@ def test_parse_cli():
 
 
 @pytest.mark.parametrize(
-    "seed, fixed_rate, transfer_price, fixed_total, consumption_data, expected",
+    "seed, transfer_price, fixed_total, consumption_data, expected",
     [
         (
             1,
-            None,
             0.05,
             1.23,
             [
@@ -93,12 +92,10 @@ def test_parse_cli():
         )
     ],
 )
-def test_calculate_costs(seed, fixed_rate, transfer_price, fixed_total, consumption_data, expected):
+def test_calculate_costs(seed, transfer_price, fixed_total, consumption_data, expected):
     random.seed(seed)
     spot_prices = [1 for _ in range(24)]
-    result = simulate.calculate_costs(
-        consumption_data, spot_prices, fixed_rate, transfer_price, fixed_total
-    )
+    result = simulate.calculate_costs(consumption_data, spot_prices, transfer_price, fixed_total)
     for k, v in expected.items():
         if isinstance(v, float):
             unittest.TestCase().assertAlmostEqual(result[k], v, places=2, msg=k)
