@@ -1,0 +1,134 @@
+[
+    {
+        "month": 1,
+        "peak": {
+            "min": 8,
+            "max": 20
+        },
+        "off-peak": {
+            "min": 2,
+            "max": 10
+        }
+    },
+    {
+        "month": 2,
+        "peak": {
+            "min": 8,
+            "max": 20
+        },
+        "off-peak": {
+            "min": 2,
+            "max": 10
+        }
+    },
+    {
+        "month": 3,
+        "peak": {
+            "min": 5,
+            "max": 15
+        },
+        "off-peak": {
+            "min": -1,
+            "max": 5
+        }
+    },
+    {
+        "month": 4,
+        "peak": {
+            "min": 5,
+            "max": 15
+        },
+        "off-peak": {
+            "min": -1,
+            "max": 5
+        }
+    },
+    {
+        "month": 5,
+        "peak": {
+            "min": 5,
+            "max": 15
+        },
+        "off-peak": {
+            "min": -1,
+            "max": 5
+        }
+    },
+    {
+        "month": 6,
+        "peak": {
+            "min": 4,
+            "max": 12
+        },
+        "off-peak": {
+            "min": -4,
+            "max": 4
+        }
+    },
+    {
+        "month": 7,
+        "peak": {
+            "min": 4,
+            "max": 12
+        },
+        "off-peak": {
+            "min": -4,
+            "max": 4
+        }
+    },
+    {
+        "month": 8,
+        "peak": {
+            "min": 4,
+            "max": 12
+        },
+        "off-peak": {
+            "min": -4,
+            "max": 4
+        }
+    },
+    {
+        "month": 9,
+        "peak": {
+            "min": 6,
+            "max": 16
+        },
+        "off-peak": {
+            "min": 2,
+            "max": 6
+        }
+    },
+    {
+        "month": 10,
+        "peak": {
+            "min": 6,
+            "max": 16
+        },
+        "off-peak": {
+            "min": 2,
+            "max": 6
+        }
+    },
+    {
+        "month": 11,
+        "peak": {
+            "min": 6,
+            "max": 16
+        },
+        "off-peak": {
+            "min": 2,
+            "max": 6
+        }
+    },
+    {
+        "month": 12,
+        "peak": {
+            "min": 8,
+            "max": 20
+        },
+        "off-peak": {
+            "min": 2,
+            "max": 10
+        }
+    }
+]

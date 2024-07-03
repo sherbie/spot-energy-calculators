@@ -3,34 +3,19 @@ import random
 from datetime import datetime, timedelta
 
 
-def simulate_spot_prices(num_hours=8760):
+def simulate_spot_prices(market_data, num_hours=8760):
     spot_prices = []
     for hour in range(num_hours):
         month = (hour // 730) % 12 + 1  # Rough estimation of month based on hour
-        if month in [12, 1, 2]:  # Winter
-            if 6 <= (hour % 24) <= 9 or 17 <= (hour % 24) <= 20:
-                spot_prices.append(random.uniform(8, 20))  # Higher prices in winter peak hours
-            else:
-                spot_prices.append(random.uniform(2, 10))  # Higher prices in winter off-peak hours
-        elif month in [3, 4, 5]:  # Spring
-            if 6 <= (hour % 24) <= 9 or 17 <= (hour % 24) <= 20:
-                spot_prices.append(random.uniform(5, 15))  # Prices in spring peak hours
-            else:
-                spot_prices.append(random.uniform(-1, 5))  # Prices in spring off-peak hours
-        elif month in [6, 7, 8]:  # Summer
-            if 6 <= (hour % 24) <= 9 or 17 <= (hour % 24) <= 20:
-                spot_prices.append(random.uniform(4, 12))  # Lower prices in summer peak hours
-            else:
-                spot_prices.append(random.uniform(-4, 4))  # Lower prices in summer off-peak hours
-        else:  # Fall
-            if 6 <= (hour % 24) <= 9 or 17 <= (hour % 24) <= 20:
-                spot_prices.append(random.uniform(6, 16))  # Prices in fall peak hours
-            else:
-                spot_prices.append(random.uniform(2, 6))  # Prices in fall off-peak hours
+        month_data = [m for m in market_data if m['month'] == month][0]
+        if 6 <= (hour % 24) <= 9 or 17 <= (hour % 24) <= 20:
+            spot_prices.append(random.uniform(month_data["peak"]["min"], month_data["peak"]["max"]))
+        else:
+            spot_prices.append(random.uniform(month_data["off-peak"]["min"], month_data["off-peak"]["max"]))
     return spot_prices
 
 
-def load_consumption_data(filename):
+def load_data(filename):
     with open(filename, 'r') as file:
         return json.load(file)
 
@@ -95,6 +80,7 @@ def main():
     parser.add_argument('--fixed_total', type=float, required=False, help='Fixed annual total in euros')
     parser.add_argument('--transfer_price', type=float, required=True, help='Base transfer price in euro cents per kwh')
     parser.add_argument('--consumption_file', type=str, required=True, help='JSON file with consumption data')
+    parser.add_argument('--market-file', type=str, required=True, help='JSON file with spot market data')
     
     args = parser.parse_args()
 
@@ -102,8 +88,9 @@ def main():
         raise ValueError("Either fixed_rate or fixed_total must be provided")
 
     random.seed(args.seed)
-    spot_prices = simulate_spot_prices()
-    consumption_data = load_consumption_data(args.consumption_file)
+    market_data = load_data(args.market_file)
+    spot_prices = simulate_spot_prices(market_data)
+    consumption_data = load_data(args.consumption_file)
 
     result = calculate_costs(
         consumption_data=consumption_data,
