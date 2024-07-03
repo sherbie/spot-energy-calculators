@@ -8,6 +8,13 @@ import argparse
 from types import SimpleNamespace
 
 
+@pytest.mark.parametrize(
+    "hour, expected", [(0, False), (6, True), (9, True), (17, True), (20, True), (23, False)]
+)
+def test_is_peak(hour, expected):
+    assert simulate.is_peak(hour) == expected
+
+
 def test_constant_seed_constant_output():
     result1 = simulate.main(
         consumption_file="test/energy_model_test.json",
@@ -43,7 +50,7 @@ def test_simulate_spot_prices(market_data, num_hours, expected):
         return min_value + max_value
 
     with patch("random.uniform", mock_random_uniform):
-        result = simulate.simulate_spot_prices(market_data, num_hours)
+        result = simulate.simulate_spot_prices_by_hour(market_data, num_hours)
         assert result == expected
 
 
@@ -59,6 +66,61 @@ def test_parse_cli():
         mock_parse_args.return_value = SimpleNamespace(fixed_rate=None, fixed_total=None)
         with pytest.raises(ValueError):
             simulate.parse_cli()
+
+
+@pytest.mark.parametrize(
+    "month_of_year, day_of_month, hourly_spot_prices, transfer_price, cpo, exp_total_variable_cost, exp_peak_prices, exp_off_peak_prices",
+    [
+        (
+            1,
+            0,
+            [],
+            1,
+            {"start_time": "00:00:00", "stop_time": "01:00:0", "kw_draw": 1.0},
+            0,
+            [],
+            [],
+        ),
+        (
+            1,
+            0,
+            [1, 2, 3],
+            1,
+            {"start_time": "00:00:00", "stop_time": "01:00:0", "kw_draw": 1.0},
+            9.0,
+            [],
+            [1, 2, 3],
+        ),
+        (
+            1,
+            0,
+            [0, 0, 0, 0, 0, 0, 1, 2, 3],
+            1,
+            {"start_time": "00:00:00", "stop_time": "01:00:0", "kw_draw": 1.0},
+            15.0,
+            [1, 2, 3],
+            [0, 0, 0, 0, 0, 0],
+        ),
+    ],
+)
+def test_get_variable_prices_of_day(
+    month_of_year,
+    day_of_month,
+    hourly_spot_prices,
+    transfer_price,
+    cpo,
+    exp_total_variable_cost,
+    exp_peak_prices,
+    exp_off_peak_prices,
+):
+    total_variable_cost, peak_prices, off_peak_prices = simulate.get_variable_prices_of_day(
+        month_of_year, day_of_month, hourly_spot_prices, transfer_price, cpo
+    )
+    assert (total_variable_cost, peak_prices, off_peak_prices) == (
+        exp_total_variable_cost,
+        exp_peak_prices,
+        exp_off_peak_prices,
+    )
 
 
 @pytest.mark.parametrize(
@@ -94,8 +156,10 @@ def test_parse_cli():
 )
 def test_calculate_costs(seed, transfer_price, fixed_total, consumption_data, expected):
     random.seed(seed)
-    spot_prices = [1 for _ in range(24)]
-    result = simulate.calculate_costs(consumption_data, spot_prices, transfer_price, fixed_total)
+    hourly_pot_prices = [1 for _ in range(24)]
+    result = simulate.calculate_costs(
+        consumption_data, hourly_pot_prices, transfer_price, fixed_total
+    )
     for k, v in expected.items():
         if isinstance(v, float):
             unittest.TestCase().assertAlmostEqual(result[k], v, places=2, msg=k)
