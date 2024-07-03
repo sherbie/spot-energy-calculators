@@ -100,13 +100,13 @@ def parse_cli():
     parser = argparse.ArgumentParser(description="Simulate annual electricity cost.")
     parser.add_argument("--seed", type=int, required=True, help="Seed for RNG")
     parser.add_argument(
-        "--fixed_total", type=float, required=True, help="Fixed annual total in euros"
+        "--fixed_total", type=float, required=True, help="Fixed annual total in X.xx currency unit"
     )
     parser.add_argument(
         "--transfer_price",
         type=float,
         required=True,
-        help="Base transfer price in euros per kwh",
+        help="Base transfer price in X.xx currency unit per kwh",
     )
     parser.add_argument(
         "--consumption_file", type=str, required=True, help="JSON file with consumption data"
