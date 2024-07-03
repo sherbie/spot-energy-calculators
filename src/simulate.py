@@ -1,6 +1,7 @@
 import json
 import random
 from datetime import datetime, timedelta
+import argparse
 
 
 def simulate_spot_prices(market_data, num_hours=8760):
@@ -71,9 +72,7 @@ def calculate_costs(consumption_data, spot_prices, fixed_rate, transfer_price, f
     }
 
 
-def main():
-    import argparse
-
+def parse_cli():
     parser = argparse.ArgumentParser(description='Simulate annual electricity cost.')
     parser.add_argument('--seed', type=int, required=True, help='Seed for RNG')
     parser.add_argument('--fixed_rate', type=float, required=False, help='Fixed rate in euro cents per kwh')
@@ -86,21 +85,33 @@ def main():
 
     if not args.fixed_rate and not args.fixed_total:
         raise ValueError("Either fixed_rate or fixed_total must be provided")
+    
+    return args
 
-    random.seed(args.seed)
-    market_data = load_data(args.market_file)
+
+def main(seed: int, transfer_price: float, consumption_file: str, market_file: str, fixed_rate: float = None, fixed_total: float = None):
+    random.seed(seed)
+    market_data = load_data(market_file)
     spot_prices = simulate_spot_prices(market_data)
-    consumption_data = load_data(args.consumption_file)
+    consumption_data = load_data(consumption_file)
 
     result = calculate_costs(
         consumption_data=consumption_data,
         spot_prices=spot_prices,
-        fixed_rate=args.fixed_rate,
-        transfer_price=args.transfer_price,
-        fixed_total=args.fixed_total,
+        fixed_rate=fixed_rate,
+        transfer_price=transfer_price,
+        fixed_total=fixed_total,
     )
     print(json.dumps(result, indent=4))
+    return result
 
 
 if __name__ == "__main__":
-    main()
+    args = parse_cli()
+    main(
+        seed=args.seed,
+        fixed_rate=args.fixed_rate,
+        fixed_total=args.fixed_total,
+        transfer_price=args.transfer_price, consumption_file=args.consumption_file,
+        market_file=args.market_file
+    )
