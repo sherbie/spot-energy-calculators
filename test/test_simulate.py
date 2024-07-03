@@ -4,7 +4,6 @@ from src import simulate
 import pytest
 from src import simulate
 from unittest.mock import patch
-import argparse
 from types import SimpleNamespace
 
 
