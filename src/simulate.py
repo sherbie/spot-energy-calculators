@@ -84,16 +84,15 @@ def calculate_costs(consumption_data, hourly_spot_prices, transfer_price, fixed_
     lowest_variable_price = min(hourly_spot_prices)
     average_peak_price = sum(peak_prices) / len(peak_prices) if peak_prices else 0
     average_off_peak_price = sum(off_peak_prices) / len(off_peak_prices) if off_peak_prices else 0
-    total_variable_cost_euros = total_variable_cost / 100
 
     return {
-        "total_cost_variable_price": total_variable_cost_euros,
+        "total_cost_variable_price": total_variable_cost,
         "highest_variable_price": highest_variable_price,
         "lowest_variable_price": lowest_variable_price,
         "average_peak_price": average_peak_price,
         "average_off_peak_price": average_off_peak_price,
         "total_cost_fixed_rate": fixed_total,
-        "savings_with_spot_price": fixed_total - total_variable_cost_euros,
+        "savings_with_spot_price": fixed_total - total_variable_cost,
     }
 
 
@@ -101,13 +100,13 @@ def parse_cli():
     parser = argparse.ArgumentParser(description="Simulate annual electricity cost.")
     parser.add_argument("--seed", type=int, required=True, help="Seed for RNG")
     parser.add_argument(
-        "--fixed_total", type=float, required=False, help="Fixed annual total in euros"
+        "--fixed_total", type=float, required=True, help="Fixed annual total in euros"
     )
     parser.add_argument(
         "--transfer_price",
         type=float,
         required=True,
-        help="Base transfer price in euro cents per kwh",
+        help="Base transfer price in euros per kwh",
     )
     parser.add_argument(
         "--consumption_file", type=str, required=True, help="JSON file with consumption data"
@@ -117,9 +116,6 @@ def parse_cli():
     )
 
     args = parser.parse_args()
-
-    if not args.fixed_rate and not args.fixed_total:
-        raise ValueError("Either fixed_rate or fixed_total must be provided")
 
     return args
 

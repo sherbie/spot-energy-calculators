@@ -61,11 +61,6 @@ def test_parse_cli():
     with patch("argparse.ArgumentParser"):
         simulate.parse_cli()
 
-    with patch("argparse.ArgumentParser.parse_args") as mock_parse_args:
-        mock_parse_args.return_value = SimpleNamespace(fixed_rate=None, fixed_total=None)
-        with pytest.raises(ValueError):
-            simulate.parse_cli()
-
 
 @pytest.mark.parametrize(
     "month_of_year, day_of_month, hourly_spot_prices, transfer_price, cpo, exp_total_variable_cost, exp_peak_prices, exp_off_peak_prices",
@@ -128,7 +123,7 @@ def test_get_variable_prices_of_day(
         (
             1,
             0.05,
-            1.23,
+            12.1,
             [
                 {
                     "consumption_periods": [
@@ -142,22 +137,22 @@ def test_get_variable_prices_of_day(
                 }
             ],
             {
-                "total_cost_variable_price": 0.126,
-                "highest_variable_price": 1,
-                "lowest_variable_price": 1,
-                "average_peak_price": 1.0,
-                "average_off_peak_price": 1.0,
-                "total_cost_fixed_rate": 1.23,
-                "savings_with_spot_price": 1.10,
+                "total_cost_variable_price": 12.0,
+                "highest_variable_price": 0.95,
+                "lowest_variable_price": 0.95,
+                "average_peak_price": 0.95,
+                "average_off_peak_price": 0.95,
+                "total_cost_fixed_rate": 12.1,
+                "savings_with_spot_price": 0.10,
             },
         )
     ],
 )
 def test_calculate_costs(seed, transfer_price, fixed_total, consumption_data, expected):
     random.seed(seed)
-    hourly_pot_prices = [1 for _ in range(24)]
+    hourly_spot_prices = [0.95 for _ in range(24)]
     result = simulate.calculate_costs(
-        consumption_data, hourly_pot_prices, transfer_price, fixed_total
+        consumption_data, hourly_spot_prices, transfer_price, fixed_total
     )
     for k, v in expected.items():
         if isinstance(v, float):
