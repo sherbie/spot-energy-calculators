@@ -1,0 +1,134 @@
+[
+    {
+        "month": 1,
+        "peak": {
+            "min": 0.08,
+            "max": 0.20
+        },
+        "off-peak": {
+            "min": 0.02,
+            "max": 0.10
+        }
+    },
+    {
+        "month": 2,
+        "peak": {
+            "min": 0.08,
+            "max": 0.20
+        },
+        "off-peak": {
+            "min": 0.02,
+            "max": 0.10
+        }
+    },
+    {
+        "month": 3,
+        "peak": {
+            "min": 0.05,
+            "max": 0.15
+        },
+        "off-peak": {
+            "min": -0.01,
+            "max": 0.05
+        }
+    },
+    {
+        "month": 4,
+        "peak": {
+            "min": 0.05,
+            "max": 0.15
+        },
+        "off-peak": {
+            "min": -0.01,
+            "max": 0.05
+        }
+    },
+    {
+        "month": 5,
+        "peak": {
+            "min": 0.05,
+            "max": 0.15
+        },
+        "off-peak": {
+            "min": -0.01,
+            "max": 0.05
+        }
+    },
+    {
+        "month": 6,
+        "peak": {
+            "min": 0.04,
+            "max": 0.12
+        },
+        "off-peak": {
+            "min": -0.04,
+            "max": 0.04
+        }
+    },
+    {
+        "month": 7,
+        "peak": {
+            "min": 0.04,
+            "max": 0.12
+        },
+        "off-peak": {
+            "min": -0.04,
+            "max": 0.04
+        }
+    },
+    {
+        "month": 8,
+        "peak": {
+            "min": 0.04,
+            "max": 0.12
+        },
+        "off-peak": {
+            "min": -0.04,
+            "max": 0.04
+        }
+    },
+    {
+        "month": 9,
+        "peak": {
+            "min": 0.06,
+            "max": 0.16
+        },
+        "off-peak": {
+            "min": 0.02,
+            "max": 0.06
+        }
+    },
+    {
+        "month": 10,
+        "peak": {
+            "min": 0.06,
+            "max": 0.16
+        },
+        "off-peak": {
+            "min": 0.02,
+            "max": 0.06
+        }
+    },
+    {
+        "month": 11,
+        "peak": {
+            "min": 0.06,
+            "max": 0.16
+        },
+        "off-peak": {
+            "min": 0.02,
+            "max": 0.06
+        }
+    },
+    {
+        "month": 12,
+        "peak": {
+            "min": 0.08,
+            "max": 0.20
+        },
+        "off-peak": {
+            "min": 0.02,
+            "max": 0.10
+        }
+    }
+]
