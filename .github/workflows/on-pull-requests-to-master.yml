@@ -15,5 +15,6 @@ jobs:
       do_test: true
       do_sonar_scan: true
       do_check_sonar_quality_gate: true
+      coverage_file_path: "coverage.xml"
     secrets: inherit
   
