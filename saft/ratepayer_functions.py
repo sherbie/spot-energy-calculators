@@ -1,12 +1,12 @@
 # the ratepayer domain model
 
 import datetime
-from datetime import date
 from datetime import datetime
 from decimal import Decimal
 
 import pandas as pd
-from ratepayer_old_model import *
+
+from .ratepayer_old_model import *
 
 
 def get_day_type(date: datetime) -> DayType:
