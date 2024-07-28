@@ -1,6 +1,6 @@
+import argparse
 import json
 import random
-import argparse
 
 
 def is_peak(hour):
