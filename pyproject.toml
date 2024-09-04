@@ -3,24 +3,38 @@ name = "SAFT"
 version = "20240409-1"
 description = "Spot Analysis For Traders (SAFT) helps ratepayers estimate outcomes of switching from fixed rate energy prices to spot price."
 authors = [
+<<<<<<< HEAD
   "sherbie <15087653+sherbie@users.noreply.github.com>",
+=======
+  "Sean Hammaond <15087653+sherbie@users.noreply.github.com>",
+>>>>>>> d24264a (Move requirements into pyproject.toml. Add fluff. Update readme)
   "Tensor Templar <lxk@droidcraft.org>",
 ]
 
 [tool.poetry.dependencies]
+<<<<<<< HEAD
 python = "^3.12"
+=======
+python = "^3.11"
+>>>>>>> d24264a (Move requirements into pyproject.toml. Add fluff. Update readme)
 entsoe-py = "^0.6.8"
 python-dotenv = "^1.0.1"
 matplotlib = "^3.9.0"
 ipykernel = "^6.29.4"
+<<<<<<< HEAD
 scikit-learn = "^1.5.1"
 pydantic = "^2.8.2"
 py-moneyed = "^3.0"
+=======
+>>>>>>> d24264a (Move requirements into pyproject.toml. Add fluff. Update readme)
 
 [tool.poetry.dev-dependencies]
 black = "^24.4.2"
 pre-commit = "^3.7.1"
+<<<<<<< HEAD
 pytest = "^8.3.3"
+=======
+>>>>>>> d24264a (Move requirements into pyproject.toml. Add fluff. Update readme)
 pytest-cov = "^5.0.0"
 
 [tool.black]
