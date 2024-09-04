@@ -16,9 +16,6 @@ ipykernel = "^6.29.4"
 scikit-learn = "^1.5.1"
 pydantic = "^2.8.2"
 py-moneyed = "^3.0"
-scikit-learn = "^1.5.1"
-pydantic = "^2.8.2"
-py-moneyed = "^3.0"
 
 [tool.poetry.dev-dependencies]
 black = "^24.4.2"
