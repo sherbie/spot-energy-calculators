@@ -3,7 +3,7 @@ name = "SAFT"
 version = "20240409-1"
 description = "Spot Analysis For Traders (SAFT) helps ratepayers estimate outcomes of switching from fixed rate energy prices to spot price."
 authors = [
-  "Sean Hammaond <15087653+sherbie@users.noreply.github.com>",
+  "sherbie <15087653+sherbie@users.noreply.github.com>",
   "Tensor Templar <lxk@droidcraft.org>",
 ]
 
