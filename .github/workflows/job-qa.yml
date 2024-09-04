@@ -44,7 +44,7 @@ jobs:
     
       - name: Setup
         run: |
-          pip install -r requirements.txt
+          poetry install
 
       - name: Run tests
         if: ${{ inputs.do_test }}
