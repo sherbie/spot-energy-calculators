@@ -8,16 +8,14 @@ This collection of scripts can help home owners estimate outcomes of switching f
 
 
 ## 1.1 Install dependencies
-It is recommended to use python3.12 or higher.
+It is recommended to use python3.12+ and we require `poetry` to manage dependencies.
 
-```
-python3 -m virtualenv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python -m ipykernel install --user --name=.venv --display-name "Spot Energy Calculators"
+```bash
+poetry install --no-dev
+poetry shell
 ```
 
-If you want to contribute, you can also run `pre-commit install` to set up pre-commit hooks.
+If you want to contribute, you can also run `poetry install` to set up pre-commit hooks and dev dependencies.
 
 ## 1.2. Create your entso-e account and api key
 

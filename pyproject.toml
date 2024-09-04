@@ -1,10 +1,50 @@
+[tool.poetry]
+name = "SAFT"
+version = "20240409-1"
+description = "Spot Analysis For Traders (SAFT) helps ratepayers estimate outcomes of switching from fixed rate energy prices to spot price."
+authors = [
+  "Sean Hammaond <15087653+sherbie@users.noreply.github.com>",
+  "Tensor Templar <lxk@droidcraft.org>",
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+entsoe-py = "^0.6.8"
+python-dotenv = "^1.0.1"
+matplotlib = "^3.9.0"
+ipykernel = "^6.29.4"
+
+[tool.poetry.dev-dependencies]
+black = "^24.4.2"
+pre-commit = "^3.7.1"
+pytest-cov = "^5.0.0"
+
 [tool.black]
 line-length = 100
+target-version = ['py312']
+include = '\.pyi?$|\.ipynb$'
+extend-exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+ensure_newline_before_comments = true
 
 [tool.pytest.ini_options]
-testpaths = [
-    "test",
-]
-python_files = [
-    "test_*.py",
-]
+testpaths = ["test"]
+python_files = ["test_*.py"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
