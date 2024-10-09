@@ -1,10 +1,10 @@
 import random
 import unittest
-from src import simulate
-import pytest
-from src import simulate
 from unittest.mock import patch
-from types import SimpleNamespace
+
+import pytest
+
+from saft import simulate
 
 
 @pytest.mark.parametrize(
