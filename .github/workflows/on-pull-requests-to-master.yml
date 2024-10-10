@@ -10,11 +10,10 @@ on:
 
 jobs:
   test:
-    uses: sherbie/spot-energy-calculators/.github/workflows/job-qa.yml@master
+    uses: ./.github/workflows/job-qa.yml
     with:
       do_test: true
       do_sonar_scan: true
       do_check_sonar_quality_gate: true
       coverage_file_path: "coverage.xml"
     secrets: inherit
-  

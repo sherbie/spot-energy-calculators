@@ -41,14 +41,18 @@ jobs:
 
       - name: Use Python
         uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
+        with:
+          cache: 'poetry'
     
       - name: Setup
         run: |
-          pip install -r requirements.txt
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo 'export PATH="$HOME/.local/bin:$PATH"' >> $GITHUB_ENV
+          poetry install
 
       - name: Run tests
         if: ${{ inputs.do_test }}
-        run: pytest -vv --cov --cov-report=xml
+        run: poetry run pytest -vv --cov --cov-report=xml
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
